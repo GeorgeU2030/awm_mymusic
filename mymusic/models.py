@@ -5,6 +5,9 @@ class Award(models.Model):
     month = models.CharField(max_length=20, null=True, blank=True)
     classification = models.CharField(max_length=100)
 
+    def __str__(self):
+        return f"{self.classification} - {self.month}"
+
 class Musician(models.Model):
     name = models.CharField(max_length=100)
     photo = models.ImageField(upload_to='musicians/', null=True, blank=True)
@@ -16,6 +19,9 @@ class Musician(models.Model):
     best_position = models.IntegerField()
     current_position = models.IntegerField()
 
+    def __str__(self):
+        return f"{self.name}"
+
 class Song(models.Model):
     name = models.CharField(max_length=100)
     rating = models.CharField(max_length=10)
@@ -25,3 +31,6 @@ class Song(models.Model):
     release_year = models.PositiveSmallIntegerField()
     genre = models.CharField(max_length=100)
     musicians = models.ManyToManyField(Musician, related_name='songs')
+
+    def __str__(self):
+        return f"{self.name}"
