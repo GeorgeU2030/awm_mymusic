@@ -1,5 +1,5 @@
 import React from 'react'
-
+import {Link} from 'react-router-dom'
 
 const MainMenu = () => {
   return (
@@ -19,8 +19,8 @@ const MainMenu = () => {
   <section className='bg-base3 h-[87vh] w-full md:w-1/2 flex justify-center'>
   <div style={{ marginTop: '2.5rem' }} >
     <div className="bg-alternative p-4 rounded-md mt-4 flex flex-col justify-center w-60 ml-12">
-  <button className='border-gray-100 text-white bg-red-500 mt-5 ml-6 mb-4 font-init rounded-md' style={{width:'10rem'}}>Add Song</button>
-  <button className='border-gray-100 text-white bg-red-500 mt-5 ml-6 mb-4 font-init rounded-md' style={{width:'10rem'}}>Add Musician</button>
+    <Link to='/addsong'><button className='border-gray-100 text-white bg-red-500 mt-5 ml-6 mb-4 font-init rounded-md' style={{width:'10rem'}}>Add Song</button></Link>
+    <Link to='/addmusician'><button className='border-gray-100 text-white bg-red-500 mt-5 ml-6 mb-4 font-init rounded-md' style={{width:'10rem'}}>Add Musician</button></Link>
   <button className='border-gray-100 text-white bg-red-500 mt-5 ml-6 mb-4 font-init rounded-md' style={{width:'10rem'}}>Add Points</button>
   </div>
 

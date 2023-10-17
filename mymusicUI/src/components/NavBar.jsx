@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -11,15 +12,16 @@ const NavBar = () => {
 
   return (
     <nav className="bg-primary p-4 flex items-center justify-between">
+      <Link to='/'>
       <div className="hidden md:flex items-center ml-16">
     <img src="src/images/headphones.png" className=" w-12 h-12 mr-4"></img>
     <h1 className="text-white text-2xl font-init font-semibold ">
     awc
     </h1>
       </div>
-
+      </Link>
       <div className="hidden md:flex space-x-4 w-1/2 justify-end">
-        <a href="#" className="text-white bg-red-500 font-init font-semibold" style={{ marginRight: '3.5rem' }}>
+        <a className="text-white bg-red-500 font-init font-semibold" style={{ marginRight: '3.5rem' }}>
           Songs
         </a>
         <a href="https://open.spotify.com/intl-es?" className="text-white bg-red-500 font-init font-semibold" style={{ marginRight: '3.5rem' }}>
