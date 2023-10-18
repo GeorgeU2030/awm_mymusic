@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-function LastWeek() {
+function LastWeek({register}) {
   const [lastWeek, setLastWeek] = useState(null);
 
   useEffect(() => {
@@ -25,6 +25,7 @@ function LastWeek() {
           value={lastWeek}
           readOnly={true}
           className="border p-2 rounded text-gray-800 w-2/5 ml-16 text-right"
+          {...register('week', { required: true })}
         />
       ) : (
         <p>No se encontró información de la última semana.</p>

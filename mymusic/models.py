@@ -30,6 +30,7 @@ class Song(models.Model):
     week = models.IntegerField(default=0)
     release_year = models.PositiveSmallIntegerField(default=0)
     genre = models.CharField(max_length=100)
+    album = models.ImageField(upload_to='album/', null=True, blank=True)
     musicians = models.ManyToManyField(Musician, related_name='songs')
 
     def __str__(self):

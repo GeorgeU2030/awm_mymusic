@@ -29,6 +29,7 @@ class LastWeekView(APIView):
         # Obtener la última canción
             last_song = Song.objects.latest('id')
             week = last_song.week
+            week+= 1
         else:
             # No hay canciones, establecer week en 1 o cualquier valor predeterminado
             week = 1

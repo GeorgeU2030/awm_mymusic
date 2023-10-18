@@ -8,7 +8,7 @@ const MenuMusician = () => {
   const {register, handleSubmit} = useForm()
   const navigate = useNavigate() 
   const onSubmit = handleSubmit(async data => {
-    const formData = new FormData();
+  const formData = new FormData();
 
   // Agregar los campos de texto
   formData.append('name', data.name);
