@@ -16,7 +16,7 @@ const NavBar = () => {
       <div className="hidden md:flex items-center ml-16">
     <img src="src/images/headphones.png" className=" w-12 h-12 mr-4"></img>
     <h1 className="text-white text-2xl font-init font-semibold ">
-    awc
+    awm
     </h1>
       </div>
       </Link>

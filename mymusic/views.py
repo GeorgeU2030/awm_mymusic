@@ -2,7 +2,9 @@
 from rest_framework import viewsets
 from .serializer import AwardSerializer, SongSerializer, MusicianCreateSerializer, MusicianRetrieveSerializer
 from .models import Award, Musician, Song
-from rest_framework.exceptions import ValidationError
+from rest_framework.views import APIView
+from django.http import JsonResponse
+
 # Create your views here.
 
 class AwardView(viewsets.ModelViewSet):
@@ -20,3 +22,16 @@ class MusicianView(viewsets.ModelViewSet):
 class SongView(viewsets.ModelViewSet):
     serializer_class = SongSerializer
     queryset = Song.objects.all()
+
+class LastWeekView(APIView):
+    def get(self, request):
+        if Song.objects.exists():
+        # Obtener la última canción
+            last_song = Song.objects.latest('id')
+            week = last_song.week
+        else:
+            # No hay canciones, establecer week en 1 o cualquier valor predeterminado
+            week = 1
+
+        data = {'week': week}
+        return JsonResponse(data)
