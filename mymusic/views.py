@@ -1,7 +1,8 @@
 
 from rest_framework import viewsets
-from .serializer import AwardSerializer, SongSerializer, MusicianSerializer
+from .serializer import AwardSerializer, SongSerializer, MusicianCreateSerializer, MusicianRetrieveSerializer
 from .models import Award, Musician, Song
+from rest_framework.exceptions import ValidationError
 # Create your views here.
 
 class AwardView(viewsets.ModelViewSet):
@@ -9,9 +10,13 @@ class AwardView(viewsets.ModelViewSet):
     queryset = Award.objects.all()
 
 class MusicianView(viewsets.ModelViewSet):
-    serializer_class = AwardSerializer
     queryset = Musician.objects.all()
 
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return MusicianCreateSerializer
+        return MusicianRetrieveSerializer
+
 class SongView(viewsets.ModelViewSet):
-    serializer_class = AwardSerializer
+    serializer_class = SongSerializer
     queryset = Song.objects.all()

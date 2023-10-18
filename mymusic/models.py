@@ -14,10 +14,10 @@ class Musician(models.Model):
     flag = models.ImageField(upload_to='flags/', null=True, blank=True)
     country = models.CharField(max_length=100)
     awards = models.ManyToManyField('Award', related_name='musicians')
-    points = models.IntegerField()
-    rating = models.IntegerField()
-    best_position = models.IntegerField()
-    current_position = models.IntegerField()
+    points = models.IntegerField(default=0)
+    rating = models.IntegerField(default=0)
+    best_position = models.IntegerField(default=0)
+    current_position = models.IntegerField(default=0)
 
     def __str__(self):
         return f"{self.name}"
@@ -27,8 +27,8 @@ class Song(models.Model):
     rating = models.CharField(max_length=10)
     start_date = models.DateField()
     end_date = models.DateField()
-    week = models.IntegerField()
-    release_year = models.PositiveSmallIntegerField()
+    week = models.IntegerField(default=0)
+    release_year = models.PositiveSmallIntegerField(default=0)
     genre = models.CharField(max_length=100)
     musicians = models.ManyToManyField(Musician, related_name='songs')
 

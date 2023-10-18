@@ -6,10 +6,15 @@ class AwardSerializer(serializers.ModelSerializer):
         model = Award
         fields ='__all__'
 
-class MusicianSerializer(serializers.ModelSerializer):
+class MusicianCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Musician
-        fields ='__all__'
+        fields = ('name', 'photo', 'flag', 'country')
+
+class MusicianRetrieveSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Musician
+        fields = '__all__'
 
 class SongSerializer(serializers.ModelSerializer):
     class Meta:

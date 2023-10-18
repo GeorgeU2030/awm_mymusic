@@ -1,13 +1,12 @@
 import React from 'react'
 import NavBar from '../components/NavBar'
-import MenuMusician from '../components/MenuMusician'
-
+import MenuSong from '../components/MenuSong'
 
 const Menubs = () => {
   return (
     <>
     <NavBar></NavBar>
-    <MenuMusician></MenuMusician>
+    <MenuSong></MenuSong>
     </>
   )
 }
