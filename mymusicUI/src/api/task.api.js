@@ -25,3 +25,13 @@ export const createMusician = (musician) => {
         },
       })
 };
+
+export const updateMusician = (musicianUpdates) => {
+  console.log('musicianUpdates:', musicianUpdates);
+  const dataToSend = JSON.stringify(musicianUpdates);
+  return axios.post('http://localhost:8000/mymusic/update-musicians/', dataToSend, {
+    headers: {
+      'Content-Type': 'application/json', // Asegura que el tipo de contenido sea JSON
+    },
+  })
+}

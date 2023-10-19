@@ -4,6 +4,9 @@ from .serializer import AwardSerializer, SongSerializer, MusicianCreateSerialize
 from .models import Award, Musician, Song
 from rest_framework.views import APIView
 from django.http import JsonResponse
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
 
 # Create your views here.
 
@@ -23,16 +26,66 @@ class SongView(viewsets.ModelViewSet):
     serializer_class = SongSerializer
     queryset = Song.objects.all()
 
-class LastWeekView(APIView):
-    def get(self, request):
+    def create(self, request, *args, **kwargs):
+        # Obtener los IDs de los músicos desde la solicitud
+        musician_idslist = request.data.get('musicians', [])  # Asegúrate de que musician_idslist sea una lista
+        musician_ids = [int(id) for id in musician_idslist.split(',')]
+        # Verificar que al menos un músico fue proporcionado
+        if not musician_ids:
+            return Response({'detail': 'Debes proporcionar al menos un músico.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Asegurarse de que los músicos con esos IDs existan
+        for musician_id in musician_ids:
+            try:
+                musician = Musician.objects.get(id=musician_id)
+            except Musician.DoesNotExist:
+                return Response({'detail': f'Músico con ID {musician_id} no encontrado.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Crear la canción y asociar los músicos
+        song_data = {
+            'name': request.data.get('name'),
+            'rating': request.data.get('rating'),
+            'start_date': request.data.get('start_date'),
+            'end_date': request.data.get('end_date'),
+            'week': request.data.get('week'),
+            'release_year': request.data.get('release_year'),
+            'genre': request.data.get('genre'),
+            'album': request.data.get('album'),
+        }
+
+        song = Song.objects.create(**song_data)
+        song.musicians.set(musician_ids)  # Asociar los músicos con la canción
+
+        serializer = self.get_serializer(song)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['GET'])
+def last_week_view(request):
+    if request.method == 'GET':
         if Song.objects.exists():
-        # Obtener la última canción
+            # Obtener la última canción
             last_song = Song.objects.latest('id')
-            week = last_song.week
-            week+= 1
+            week = last_song.week + 1
         else:
             # No hay canciones, establecer week en 1 o cualquier valor predeterminado
             week = 1
 
         data = {'week': week}
-        return JsonResponse(data)
+        return Response(data, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def update_musicians(request):
+    if request.method == 'POST':
+        musician_updates = request.data
+        print("Received musician updates:", musician_updates)
+        # Itera sobre los datos y actualiza los músicos
+        for updatemus in musician_updates:
+            musician_id = updatemus['id']
+            points_to_add = updatemus['pointsToAdd']
+            musician = Musician.objects.get(id=musician_id)
+            musician.points += int(points_to_add)
+            musician.save()
+
+        return Response('Músicos actualizados con éxito', status=status.HTTP_200_OK)
+
+    return Response('Solicitud no válida', status=status.HTTP_400_BAD_REQUEST)

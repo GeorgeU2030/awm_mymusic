@@ -17,14 +17,14 @@ function LastWeek({register}) {
 
   return (
     <div className='flex py-4'>
-        <label htmlFor="week" className="block text-gray-700 font-bold mb-2 ml-5 mt-2">Week</label>
+        <label htmlFor="week" className="block text-gray-700 font-bold mb-2 ml-5 mt-2 font-init">Week</label>
         {lastWeek !== null ? (
         <input
           type="text"
           name="week"
           value={lastWeek}
           readOnly={true}
-          className="border p-2 rounded text-gray-800 w-2/5 ml-16 text-right"
+          className="border p-2 rounded text-gray-800 w-2/5 ml-16 text-right font-init"
           {...register('week', { required: true })}
         />
       ) : (

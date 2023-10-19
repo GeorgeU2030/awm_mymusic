@@ -4,6 +4,7 @@ from django.db import models
 class Award(models.Model):
     month = models.CharField(max_length=20, null=True, blank=True)
     classification = models.CharField(max_length=100)
+    points = models.IntegerField(default=0)
 
     def __str__(self):
         return f"{self.classification} - {self.month}"
@@ -13,7 +14,7 @@ class Musician(models.Model):
     photo = models.ImageField(upload_to='musicians/', null=True, blank=True)
     flag = models.ImageField(upload_to='flags/', null=True, blank=True)
     country = models.CharField(max_length=100)
-    awards = models.ManyToManyField('Award', related_name='musicians')
+    awards = models.ManyToManyField('Award', related_name='musicians',blank=True)
     points = models.IntegerField(default=0)
     rating = models.IntegerField(default=0)
     best_position = models.IntegerField(default=0)
