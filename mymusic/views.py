@@ -1,4 +1,5 @@
 
+from django.shortcuts import get_list_or_404
 from rest_framework import viewsets
 from .serializer import AwardSerializer, SongSerializer, MusicianCreateSerializer, MusicianRetrieveSerializer
 from .models import Award, Musician, Song
@@ -85,6 +86,34 @@ def update_musicians(request):
             musician = Musician.objects.get(id=musician_id)
             musician.points += int(points_to_add)
             musician.save()
+
+            award = Award.objects.create(
+                classification='week',  
+                points=points_to_add,    
+            )
+            musician.awards.add(award)
+
+            week_awards = musician.awards.filter(classification='week')
+            total_points = sum([award.points for award in week_awards])
+            if week_awards:
+                rating = total_points / len(week_awards)
+            else:
+                rating = 0
+
+            musician.rating = rating
+            musician.save()
+        
+        musicians = get_list_or_404(Musician)
+
+        musicians_sorted = sorted(musicians, key=lambda musician: musician.points, reverse=True)
+
+        for position, musician in enumerate(musicians_sorted, start=1):
+            musician.current_position = position
+            musician.save()
+
+            if musician.best_position == 0 or musician.current_position < musician.best_position:
+                musician.best_position = musician.current_position
+                musician.save()
 
         return Response('Músicos actualizados con éxito', status=status.HTTP_200_OK)
 

@@ -52,10 +52,10 @@ const MenuSong = () => {
     }
     await createSong(formData)
     await updateMusician(musicianUpdates)
-    // Manejar la respuesta exitosa
-    //navigate('/');
+    
+    navigate('/');
   } catch (error) {
-    // Manejar errores
+    
     console.error(error);
   }
   })
