@@ -17,10 +17,8 @@ class MusicianRetrieveSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class SongSerializer(serializers.ModelSerializer):
-    musicians = serializers.PrimaryKeyRelatedField(
-        queryset=Musician.objects.all(),
-        many=True  # Asegura que pueda manejar una lista de músicos
-    )
+    musicians = MusicianCreateSerializer(many=True)
+
     class Meta:
         model = Song
-        fields ='__all__'
+        fields = '__all__'

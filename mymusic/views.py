@@ -8,6 +8,7 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from django.db.models import Count
 
 # Create your views here.
 
@@ -118,3 +119,34 @@ def update_musicians(request):
         return Response('Músicos actualizados con éxito', status=status.HTTP_200_OK)
 
     return Response('Solicitud no válida', status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def top_musicians(request):
+    top_musicians = Musician.objects.order_by('-points')[:3]
+
+    serializer = MusicianCreateSerializer(top_musicians, many=True)
+
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def top_musicians_with_awards(request):
+    # Obtener a los músicos con más premios (awards)
+    top_musicians = Musician.objects.annotate(award_count=Count('awards')).order_by('-award_count')[:3]
+
+    # Serializar los músicos
+    serializer = MusicianCreateSerializer(top_musicians, many=True)
+
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def all_songs(request):
+    songs = Song.objects.order_by('-week')
+    serializer = SongSerializer(songs, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def ranking(request):
+    musicians = Musician.objects.order_by('current_position')
+    serializer = MusicianRetrieveSerializer(musicians, many=True)
+    return Response(serializer.data)

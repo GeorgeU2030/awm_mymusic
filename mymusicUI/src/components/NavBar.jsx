@@ -21,9 +21,11 @@ const NavBar = () => {
       </div>
       </Link>
       <div className="hidden md:flex space-x-4 w-1/2 justify-end">
+        <Link to='/songs'>
         <a className="text-white bg-red-500 font-init font-semibold" style={{ marginRight: '3.5rem' }}>
           Songs
         </a>
+        </Link>
         <a href="https://open.spotify.com/intl-es?" className="text-white bg-red-500 font-init font-semibold" style={{ marginRight: '3.5rem' }}>
           Spotify
         </a>

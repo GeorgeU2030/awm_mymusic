@@ -11,4 +11,8 @@ urlpatterns = [
     path("api/v1/", include(router.urls)),
     path("lastweek/", views.last_week_view, name="lastweek"),
     path("update-musicians/", views.update_musicians, name="updatemusician"),
+    path("topmusicians/", views.top_musicians, name="topmusician"),
+    path("topawards/", views.top_musicians_with_awards, name="topawards"),
+    path("allsongs/", views.all_songs, name="allsongs"),
+    path("ranking/", views.ranking, name="ranking"),
 ]

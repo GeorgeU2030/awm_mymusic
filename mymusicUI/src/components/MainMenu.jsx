@@ -1,18 +1,59 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import config from '../../config';
+import {Link,useNavigate} from 'react-router-dom'
+import axios from 'axios';
 
 const MainMenu = () => {
+
+  const navigate = useNavigate()
+
+  const [topMusicians, setTopMusicians] = useState([]);
+  const [topMusiciansawards, setTopMusiciansawards] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:8000/mymusic/topmusicians/')
+      .then((response) => {
+        setTopMusicians(response.data);
+        console.log('Top Musicians:', response.data);
+      })
+      .catch((error) => {
+        console.error('Error al obtener a los mejores músicos:', error);
+      });
+  }, []);
+
+  useEffect(()=>{
+  axios.get('http://localhost:8000/mymusic/topawards/')
+  .then((response) => {
+    setTopMusiciansawards(response.data);
+    console.log('Top Musicians with Awards:', response.data);
+  })
+  .catch((error) => {
+    console.error('Error al obtener a los mejores músicos con premios:', error);
+  });
+},[])
+
+
   return (
     <div className='flex flex-col md:flex-row'>
   <section className='bg-secondary h-[87vh] w-full md:w-1/2 flex justify-center'>
    <div style={{ marginTop: '3rem' }}>
-   <img src="src/images/headphone.png" alt="Imagen de auriculares" className='rounded-md border w-60 h-60'/>
+   <img src={topMusicians.length > 0 ? config.API_BASE_URL + topMusicians[0].photo : 'src/images/headphones.png'} alt="Imagen de músico con más puntos" className='rounded-md border w-60 h-60' />
    <div className="bg-alternative p-4 rounded-md mt-4 flex flex-col">
-  <div className="font-bold font-init bg-gray-50 text-yellow-600 mb-2 ml-1 text-xl rounded-md border">1. Músico </div>
-  <div className="font-bold font-init bg-gray-50 text-gray-600 mb-2 ml-1 rounded-md border">2. Músico </div>
-  <div className="font-bold font-init bg-gray-50 text-amber-900 mb-8 ml-1 rounded-md border">3. Músico </div>
-  
-  <button className='border-gray-100 text-white bg-red-500 ml-6 font-init rounded-md' style={{width:'10rem'}}>See Ranking</button>
+  <div className="font-bold font-init bg-gray-50 text-yellow-600 mb-2 ml-1 text-xl rounded-md border">
+  {topMusicians.length > 0 ? '1. '+ topMusicians[0].name : ''} </div>
+  <div className="font-bold font-init bg-gray-50 text-gray-600 mb-2 ml-1 rounded-md border">
+  {topMusicians.length > 0 ? '2. '+ topMusicians[1].name : ''} </div>
+  <div className="font-bold font-init bg-gray-50 text-amber-900 mb-8 ml-1 rounded-md border">
+  {topMusicians.length > 0 ? '3. '+ topMusicians[2].name : ''} </div>
+    <div>
+  <button className='border-gray-100 text-white bg-red-500 ml-6 font-init rounded-md py-2' style={{width:'10rem'}} 
+    onClick={() => {
+      navigate('/ranking'); 
+    }}
+  >
+    See Ranking</button>
+  </div>
     </div>
    </div>
   </section>
@@ -25,9 +66,9 @@ const MainMenu = () => {
   </div>
 
   <div className='bg-secondary flex flex-row mt-10 '>
-  <img src="src/images/headphones.png" alt="Imagen de auriculares" className='rounded-md border w-28 h-28'/>
-  <img src="src/images/headphones.png" alt="Imagen de auriculares" className='rounded-md border w-28 h-28 ml-1'/>
-  <img src="src/images/headphones.png" alt="Imagen de auriculares" className='rounded-md border w-28 h-28 ml-1'/>
+  <img src={topMusiciansawards.length > 0 ? config.API_BASE_URL + topMusiciansawards[0].photo : 'src/images/headphones.png'} alt="Imagen de músico con mas awards" className='rounded-md border w-28 h-28'/>
+  <img src={topMusiciansawards.length > 0 ? config.API_BASE_URL + topMusiciansawards[1].photo : 'src/images/headphones.png'} alt="Imagen de músico con mas awards" className='rounded-md border w-28 h-28 ml-1'/>
+  <img src={topMusiciansawards.length > 0 ? config.API_BASE_URL + topMusiciansawards[2].photo : 'src/images/headphones.png'} alt="Imagen de músico con mas awards" className='rounded-md border w-28 h-28 ml-1'/>
   </div>
 
   <div className='mt-5 ml-16'>
