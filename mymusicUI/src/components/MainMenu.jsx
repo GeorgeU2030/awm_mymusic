@@ -62,7 +62,7 @@ const MainMenu = () => {
     <div className="bg-alternative p-4 rounded-md mt-4 flex flex-col justify-center w-60 ml-12">
     <Link to='/addsong'><button className='border-gray-100 text-white bg-red-500 mt-5 ml-6 mb-4 font-init rounded-md' style={{width:'10rem'}}>Add Song</button></Link>
     <Link to='/addmusician'><button className='border-gray-100 text-white bg-red-500 mt-5 ml-6 mb-4 font-init rounded-md' style={{width:'10rem'}}>Add Musician</button></Link>
-  <button className='border-gray-100 text-white bg-red-500 mt-5 ml-6 mb-4 font-init rounded-md' style={{width:'10rem'}}>Add Points</button>
+    <Link to='/addpoints'><button className='border-gray-100 text-white bg-red-500 mt-5 ml-6 mb-4 font-init rounded-md' style={{width:'10rem'}}>Add Points</button></Link>
   </div>
 
   <div className='bg-secondary flex flex-row mt-10 '>
@@ -72,7 +72,12 @@ const MainMenu = () => {
   </div>
 
   <div className='mt-5 ml-16'>
-  <button className='border-gray-100 text-white bg-red-500 mt-5 ml-6 mb-4 font-init rounded-md py-2' style={{width:'10rem'}}>Awards</button>
+  <button className='border-gray-100 text-white bg-red-500 mt-5 ml-6 mb-4 font-init rounded-md py-2' style={{width:'10rem'}}
+  onClick={() => {
+    navigate('/awards'); 
+  }}
+  >
+    Awards</button>
   </div>
     </div>
   </section>

@@ -5,6 +5,9 @@ import Menubs from './pages/Menubs'
 import Menubm from './pages/Menubm'
 import SongPage from './pages/SongPage'
 import Rankingpage from './pages/Rankingpage'
+import AwardPage from './pages/AwardPage'
+import MusicianPage from './pages/MusicianPage'
+import PointsPage from './pages/PointsPage'
 
 
 const App = () => {
@@ -16,6 +19,9 @@ const App = () => {
     <Route path='/addmusician' element={<Menubm></Menubm>}></Route>
     <Route path='/songs' element={<SongPage></SongPage>}></Route>
     <Route path='/ranking' element={<Rankingpage></Rankingpage>}></Route>
+    <Route path='/awards' element={<AwardPage></AwardPage>}></Route>
+    <Route path='/addpoints' element={<PointsPage></PointsPage>}></Route>
+    <Route path="/musician/:musicianId" element={<MusicianPage></MusicianPage>} />
     </Routes>
     </BrowserRouter>
   )

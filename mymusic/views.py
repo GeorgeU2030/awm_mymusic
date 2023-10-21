@@ -150,3 +150,87 @@ def ranking(request):
     musicians = Musician.objects.order_by('current_position')
     serializer = MusicianRetrieveSerializer(musicians, many=True)
     return Response(serializer.data)
+
+@api_view(['GET'])
+def sorted_by_awards(request):
+    musicians = Musician.objects.annotate(award_count=Count('awards')).order_by('-award_count')
+    serializer = MusicianRetrieveSerializer(musicians, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def musician_detail(request, musician_id):
+    try:
+        musician = Musician.objects.get(id=musician_id)
+    except Musician.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = MusicianRetrieveSerializer(musician)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def musician_songs(request, musician_id):
+    songs = Song.objects.filter(musicians=musician_id)
+    serializer = SongSerializer(songs, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def musician_awards(request, musician_id):
+    musician = Musician.objects.filter(id=musician_id).first()
+
+    if not musician:
+        return Response(status=404)
+
+    awards = {
+        "week": musician.awards.filter(classification="week").count(),
+        "january": musician.awards.filter(classification="january").count(),
+        "february": musician.awards.filter(classification="february").count(),
+        "march": musician.awards.filter(classification="march").count(),
+        "april": musician.awards.filter(classification="april").count(),
+        "may": musician.awards.filter(classification="may").count(),
+        "june": musician.awards.filter(classification="june").count(),
+        "july": musician.awards.filter(classification="july").count(),
+        "august": musician.awards.filter(classification="august").count(),
+        "september": musician.awards.filter(classification="september").count(),
+        "october": musician.awards.filter(classification="october").count(),
+        "november": musician.awards.filter(classification="november").count(),
+        "december": musician.awards.filter(classification="december").count(),
+        "sixmonth": musician.awards.filter(classification="sixmonth").count(),
+        "year": musician.awards.filter(classification="year").count(),
+    }
+
+    return Response(awards)
+
+@api_view(['POST'])
+def add_points_to_musicians(request):
+    musician_ids = request.data.get("musicianIds")
+    print(musician_ids)
+    points_to_add = request.data.get("pointsToAdd")
+    classification = request.data.get("classification")
+
+    if musician_ids and points_to_add:
+        # Actualiza los puntos de los músicos seleccionados
+        musicians = Musician.objects.filter(id__in=musician_ids)
+        for musician in musicians:
+            musician.points += points_to_add
+            musician.save()
+
+            award = Award.objects.create(
+                classification=classification,     
+            )
+            musician.awards.add(award)
+
+    musicians = get_list_or_404(Musician)
+
+    musicians_sorted = sorted(musicians, key=lambda musician: musician.points, reverse=True)
+
+    for position, musician in enumerate(musicians_sorted, start=1):
+        musician.current_position = position
+        musician.save()
+
+        if musician.best_position == 0 or musician.current_position < musician.best_position:
+            musician.best_position = musician.current_position
+            musician.save()
+
+        return Response({"message": "Puntos y premio agregados correctamente."})
+
+    return Response({"message": "Solicitud incorrecta."}, status=400)

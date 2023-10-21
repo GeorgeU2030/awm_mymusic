@@ -15,4 +15,9 @@ urlpatterns = [
     path("topawards/", views.top_musicians_with_awards, name="topawards"),
     path("allsongs/", views.all_songs, name="allsongs"),
     path("ranking/", views.ranking, name="ranking"),
+    path("sortawards/", views.sorted_by_awards, name="sortawards"),
+    path("addpoints/", views.add_points_to_musicians, name="addpoints"),
+    path("musicians/<int:musician_id>/", views.musician_detail, name="musiciandetails"),
+    path("musicians/<int:musician_id>/songs/", views.musician_songs, name="musiciansongs"),
+    path("musicians/<int:musician_id>/awards/", views.musician_awards, name="musicianawards"),
 ]
