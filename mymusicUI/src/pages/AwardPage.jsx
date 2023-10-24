@@ -62,7 +62,7 @@ const AwardPage = () => {
     onChange={handleSearch}
   />
   </div>
-  
+    <div className='overflow-y-auto h-[77vh]'>
       <table className="mx-auto w-full md:w-4/5 lg:w-11/12 border-collapse border border-gray-300 mt-10">
       <thead className="bg-gray-100">
           <tr>
@@ -109,6 +109,7 @@ const AwardPage = () => {
           ))}
       </tbody>
   </table>
+  </div>
   </>
   )
 }

@@ -55,7 +55,7 @@ function MusicianPage() {
   return (
     <>
     
-    <nav className={"bg-primary p-4 flex items-center justify-between " + 
+    <nav className={" p-4 flex items-center justify-between " + 
     (musician && musician.rating !== undefined ?
     (musician.rating > 90 ? 'bg-blue-700' :
      (musician.rating >= 83 && musician.rating <= 90 ? 'bg-teal-700' :

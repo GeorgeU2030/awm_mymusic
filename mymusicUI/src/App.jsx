@@ -8,7 +8,8 @@ import Rankingpage from './pages/Rankingpage'
 import AwardPage from './pages/AwardPage'
 import MusicianPage from './pages/MusicianPage'
 import PointsPage from './pages/PointsPage'
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (
@@ -23,7 +24,9 @@ const App = () => {
     <Route path='/addpoints' element={<PointsPage></PointsPage>}></Route>
     <Route path="/musician/:musicianId" element={<MusicianPage></MusicianPage>} />
     </Routes>
+    <ToastContainer autoClose={3000} position="top-center" />
     </BrowserRouter>
+    
   )
 }
 

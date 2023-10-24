@@ -132,7 +132,7 @@ def top_musicians(request):
 @api_view(['GET'])
 def top_musicians_with_awards(request):
     # Obtener a los músicos con más premios (awards)
-    top_musicians = Musician.objects.annotate(award_count=Count('awards')).order_by('-award_count')[:3]
+    top_musicians = Musician.objects.annotate(award_count=Count('awards')).order_by('-award_count','-points')[:3]
 
     # Serializar los músicos
     serializer = MusicianCreateSerializer(top_musicians, many=True)
@@ -153,7 +153,7 @@ def ranking(request):
 
 @api_view(['GET'])
 def sorted_by_awards(request):
-    musicians = Musician.objects.annotate(award_count=Count('awards')).order_by('-award_count')
+    musicians = Musician.objects.annotate(award_count=Count('awards')).order_by('-award_count','-points')
     serializer = MusicianRetrieveSerializer(musicians, many=True)
     return Response(serializer.data)
 
@@ -219,7 +219,7 @@ def add_points_to_musicians(request):
             )
             musician.awards.add(award)
 
-    musicians = get_list_or_404(Musician)
+    musicians = Musician.objects.all()
 
     musicians_sorted = sorted(musicians, key=lambda musician: musician.points, reverse=True)
 
@@ -231,6 +231,72 @@ def add_points_to_musicians(request):
             musician.best_position = musician.current_position
             musician.save()
 
-        return Response({"message": "Puntos y premio agregados correctamente."})
+    return Response({"message": "Puntos y premio agregados correctamente."})
 
-    return Response({"message": "Solicitud incorrecta."}, status=400)
+
+@api_view(['POST'])
+def addpointsweek(request):
+    musician_ids = request.data.get("musicianIds")
+    points_to_add = request.data.get("pointsToAdd")
+
+    if musician_ids and points_to_add:
+        
+        musicians = Musician.objects.filter(id__in=musician_ids)
+        for musician in musicians:
+            musician.points += points_to_add
+            musician.save()
+
+
+    musicians = Musician.objects.all()
+
+    musicians_sorted = sorted(musicians, key=lambda musician: musician.points, reverse=True)
+
+    for position, musician in enumerate(musicians_sorted, start=1):
+        musician.current_position = position
+        musician.save()
+
+        if musician.best_position == 0 or musician.current_position < musician.best_position:
+            musician.best_position = musician.current_position
+            musician.save()
+
+    return Response({"message": "Puntos y premio agregados correctamente."})
+
+    
+
+
+@api_view(['POST'])
+def addpointstrophy(request):
+    musician_ids = request.data.get("musicianIds")
+    print(musician_ids)
+    points_to_add = request.data.get("pointsToAdd")
+    classification = request.data.get("classification")
+
+    if musician_ids and points_to_add:
+        
+        musicians = Musician.objects.filter(id__in=musician_ids)
+        for musician in musicians:
+            musician.points += points_to_add
+            musician.save()
+
+            award = Award.objects.create(
+                classification=classification,     
+            )
+            musician.awards.add(award)
+
+
+    musiciansr = Musician.objects.all()
+
+    musicians_sorted = sorted(musiciansr, key=lambda musician: musician.points, reverse=True)
+
+    for position, musician in enumerate(musicians_sorted, start=1):
+        print(musician.name)
+        musician.current_position = position
+        musician.save()
+
+        if musician.best_position == 0 or musician.current_position < musician.best_position:
+            musician.best_position = musician.current_position
+            musician.save()
+
+    return Response({"message": "Puntos y premio agregados correctamente."})
+
+    
