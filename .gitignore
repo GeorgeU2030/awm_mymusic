@@ -11,7 +11,7 @@ __pycache__/
 .envrc
 .env.*.local
 .venv/
-venv/
+myvenv/
 ENV/
 env/
 

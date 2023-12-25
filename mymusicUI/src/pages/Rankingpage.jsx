@@ -33,18 +33,30 @@ const Rankingpage = () => {
       setFilteredMusicians(filtered);
     }, [musicians, searchTerm]);
 
+
+    const getRatingImage = (rating) => {
+      if (rating > 90) {
+        
+        return "src/images/diamante.png" ;
+      } else if (rating >= 83 && rating <= 90) {
+        return "src/images/rubi.png" ;
+      } else if (rating >= 76 && rating < 83) {
+        return "src/images/esmeralda.png";
+      } else if (rating >= 67 && rating < 75) {
+        return "src/images/zafiro.png";
+      } else if (rating >= 60 && rating < 67) {
+        return "src/images/oro.png";
+      } 
+    
+      return <img src="/images/headphones.png" alt="Default" className="w-12 h-12" />;
+    };
+    
+
   return (
     <>
-    <nav className="bg-primary p-4 flex items-center justify-between">
-      <Link to='/'>
-      <div className="hidden md:flex items-center ml-16">
-    <img src="src/images/headphones.png" className=" w-12 h-12 mr-4"></img>
-    <h1 className="text-white text-2xl font-init font-semibold ">
-    awm
-    </h1>
-      </div>
-      </Link>
-      <div className="hidden md:flex space-x-4 w-1/2 justify-center mr-10">
+    <nav className="bg-primary p-4 flex items-center justify-end">
+      
+      <div className="hidden md:flex space-x-4 w-1/2 justify-end mr-20 mt-3">
         <h1 className='font-init text-white text-xl font-semibold animate__animated animate__fadeIn'>This is the Ranking</h1>
       </div>
       </nav>
@@ -69,7 +81,7 @@ const Rankingpage = () => {
       <th className="py-2 px-6 text-center text-sm font-init bg-alternative">Country</th>
       <th className="py-2 px-6 text-center text-sm font-init bg-alternative">Points</th>
       <th className="py-2 px-6 text-center text-sm font-init bg-alternative">Rating</th>
-      {/* Agregar más encabezados según tus necesidades */}
+      <th className="py-2 px-6 text-center text-sm font-init bg-alternative"></th>
     </tr>
   </thead>
   <tbody>
@@ -87,7 +99,11 @@ const Rankingpage = () => {
         <td className="py-3 px-6 text-center font-init">{musician.country}</td>
         <td className="py-3 px-6 text-center font-init text-xl">{musician.points}</td>
         <td className="py-3 px-6 text-center font-init text-xl">{musician.rating}</td>
-        {/* Agregar más celdas según tus necesidades */}
+        <td className="py-3 px-6 text-center font-init text-xl">
+        <img className='w-8 h-8'
+            src={getRatingImage(musician.rating)}
+          />
+        </td>
       </tr>
     ))}
   </tbody>

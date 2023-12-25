@@ -19,6 +19,11 @@ class Musician(models.Model):
     rating = models.IntegerField(default=0)
     best_position = models.IntegerField(default=0)
     current_position = models.IntegerField(default=0)
+    start_date_bp = models.DateField(null=True)
+    end_date_bp = models.DateField(null=True)
+    points_year = models.IntegerField(default=0)
+    points_semester = models.IntegerField(default=0)
+
 
     def __str__(self):
         return f"{self.name}"
@@ -36,3 +41,31 @@ class Song(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+    
+class Ranking(models.Model):
+    info = models.CharField(max_length=100)
+    musician1 = models.CharField(max_length=100)
+    points1 = models.IntegerField(default=0)
+    musician2 = models.CharField(max_length=100)
+    points2 = models.IntegerField(default=0)
+    musician3 = models.CharField(max_length=100)
+    points3 = models.IntegerField(default=0)
+    musician4 = models.CharField(max_length=100)
+    points4 = models.IntegerField(default=0)
+    musician5 = models.CharField(max_length=100)
+    points5 = models.IntegerField(default=0)
+    musician6 = models.CharField(max_length=100)
+    points6 = models.IntegerField(default=0)
+    musician7 = models.CharField(max_length=100)
+    points7 = models.IntegerField(default=0)
+    musician8 = models.CharField(max_length=100)
+    points8 = models.IntegerField(default=0)
+    musician9 = models.CharField(max_length=100)
+    points9 = models.IntegerField(default=0)
+    musician10 = models.CharField(max_length=100)
+    points10 = models.IntegerField(default=0)
+
+class Rank(models.Model):
+    musician = models.ForeignKey(Musician, on_delete=models.CASCADE)
+    week = models.IntegerField()
+    position = models.IntegerField()

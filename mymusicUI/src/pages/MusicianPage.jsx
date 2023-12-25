@@ -49,38 +49,31 @@ function MusicianPage() {
     return <div>Cargando...</div>;
   }
 
+  const bgColorClass = musician.rating > 90
+    ? 'bg-blue-600'
+    : musician.rating >= 83 && musician.rating <= 90
+    ? 'bg-red-600'
+    : musician.rating >= 76 && musician.rating < 83
+    ? 'bg-green-600'
+    : musician.rating >= 67 && musician.rating < 75
+    ? 'bg-purple-600'
+    : musician.rating >= 60 && musician.rating < 66
+    ? 'bg-yellow-600'
+    : '';
   
  
   // Renderiza los detalles del músico
   return (
     <>
     
-    <nav className={" p-4 flex items-center justify-between " + 
-    (musician && musician.rating !== undefined ?
-    (musician.rating > 90 ? 'bg-blue-700' :
-     (musician.rating >= 83 && musician.rating <= 90 ? 'bg-teal-700' :
-      (musician.rating >= 76 && musician.rating <= 83 ? 'bg-yellow-600' :
-       (musician.rating >= 67 && musician.rating <= 75 ? 'bg-gray-700' :
-        (musician.rating >= 60 && musician.rating <= 66 ? 'bg-amber-900' : 'bg-primary')
-       )
-      )
-     )
-    ) : 'bg-primary'
-  )} >
-      <Link to='/'>
-      <div className="hidden md:flex items-center ml-16">
-    <img src="../src/images/headphones.png" className=" w-12 h-12 mr-4"></img>
-    <h1 className="text-white text-2xl font-init font-semibold ">
-    awm
-    </h1>
-      </div>
-      </Link>
-      <div className="hidden md:flex space-x-4 w-1/2 justify-center mr-10">
+    <nav className="p-4 flex items-center justify-center bg-primary " >
+      
+      <div className="hidden md:flex space-x-4 w-1/2 justify-end mr-20 mt-4">
         <h1 className='font-init text-white text-xl font-semibold animate__animated animate__fadeIn'>The Musician</h1>
       </div>
       </nav>
-      <div className='flex justify-center bg-alternative h-[87vh]'>
-      <div className='w-5/6 bg-gray-100 mt-10 rounded-md h-5/6 flex'>
+      <div className={`flex justify-center bg-alternative h-[87vh] ${bgColorClass}`}>
+      <div className='w-5/6 bg-base2 mt-10 rounded-md h-5/6 flex'>
         <section className='w-1/2 flex flex-col justify-center items-center'>
       <img
             src={config.API_BASE_URL + musician.photo}
@@ -91,7 +84,7 @@ function MusicianPage() {
           <div className='mt-2 font-init text-xl font-bold'>
             <h1>{musician.name}</h1>
           </div>
-          <div className='mt-2 font-init text-lg font-bold flex justify-center items-center bg-gray-300 px-2 py-2 rounded-md '>
+          <div className='mt-2 font-init text-lg font-bold flex justify-center items-center bg-base4 px-2 py-2 rounded-md '>
           <img
             src={config.API_BASE_URL + musician.flag}
             alt="Musician Photo"
@@ -105,7 +98,7 @@ function MusicianPage() {
           </div>
           <div className='font-init text-md mt-2 flex justify-center'>
             <h1>Best Position</h1>
-            <h1 className='ml-6'>{musician.best_position}°</h1>
+            <h1 className='ml-2'>{musician.best_position}° - {musician.start_date_bp} - {musician.end_date_bp}</h1>
           </div>
           <div className='font-init text-md font-bold mt-2 flex justify-center'>
             <h1>Position Rank</h1>
@@ -171,31 +164,31 @@ function MusicianPage() {
         
       {musician.rating > 90 ? (
     <img
-      src="../src/images/diamond.png" 
+      src="../src/images/diamante.png" 
       alt="Imagen 0"
       className="w-6 h-6 rounded-md"
     />
     ) : musician.rating >= 83 && musician.rating <= 90 ? (
       <img
-      src="../src/images/platino.png" 
+      src="../src/images/rubi.png" 
       alt="Imagen 0"
       className="w-6 h-6 rounded-md"
     />
       ) : musician.rating >= 76 && musician.rating <= 83 ? (
         <img
-      src="../src/images/coin.png" 
+      src="../src/images/esmeralda.png" 
       alt="Imagen 0"
       className="w-6 h-6 rounded-md"
     />
       ) : musician.rating >= 67 && musician.rating <= 75 ? (
         <img
-      src="../src/images/silver-medal.png" 
+      src="../src/images/zafiro.png" 
       alt="Imagen 0"
       className="w-6 h-6 rounded-md"
     />
       ) : musician.rating >= 60 && musician.rating <= 66 ? (
         <img
-      src="../src/images/bronze-medal.png" 
+      src="../src/images/oro.png" 
       alt="Imagen 0"
       className="w-6 h-6 rounded-md"
     />
@@ -224,7 +217,7 @@ function MusicianPage() {
     <tr>
       <td className="p-2 text-center">
         <img
-          src="../src/images/ice-crystal.png" 
+          src="../src/images/awjanuary.png" 
           alt="Imagen 0"
           className="w-6 h-6 rounded-md"
         />
@@ -238,7 +231,7 @@ function MusicianPage() {
     <tr>
       <td className="p-2 text-center">
         <img
-          src="../src/images/heart.png" 
+          src="../src/images/awfebruary.png" 
           alt="Imagen 0"
           className="w-6 h-6 rounded-md"
         />
@@ -252,7 +245,7 @@ function MusicianPage() {
     <tr>
       <td className="p-2 text-center">
         <img
-          src="../src/images/clover.png" 
+          src="../src/images/awmarch.png" 
           alt="Imagen 0"
           className="w-6 h-6 rounded-md"
         />
@@ -266,7 +259,7 @@ function MusicianPage() {
     <tr>
       <td className="p-2 text-center">
         <img
-          src="../src/images/brush.png" 
+          src="../src/images/awapril.png" 
           alt="Imagen 0"
           className="w-6 h-6 rounded-md"
         />
@@ -280,7 +273,7 @@ function MusicianPage() {
     <tr>
       <td className="p-2 text-center">
         <img
-          src="../src/images/rose.png" 
+          src="../src/images/awmay.png" 
           alt="Imagen 0"
           className="w-6 h-6 rounded-md"
         />
@@ -294,7 +287,7 @@ function MusicianPage() {
     <tr>
       <td className="p-2 text-center">
         <img
-          src="../src/images/sun.png" 
+          src="../src/images/awjune.png" 
           alt="Imagen 0"
           className="w-6 h-6 rounded-md"
         />
@@ -308,7 +301,7 @@ function MusicianPage() {
     <tr>
       <td className="p-2 text-center">
         <img
-          src="../src/images/tomorrowland.png" 
+          src="../src/images/awjuly.png" 
           alt="Imagen 0"
           className="w-6 h-6 rounded-md"
         />
@@ -322,7 +315,7 @@ function MusicianPage() {
     <tr>
       <td className="p-2 text-center">
         <img
-          src="../src/images/drop.png" 
+          src="../src/images/awaugust.png" 
           alt="Imagen 0"
           className="w-6 h-6 rounded-md"
         />
@@ -336,7 +329,7 @@ function MusicianPage() {
     <tr>
       <td className="p-2 text-center">
         <img
-          src="../src/images/leaf.png" 
+          src="../src/images/awseptember.png" 
           alt="Imagen 0"
           className="w-6 h-6 rounded-md"
         />
@@ -350,7 +343,7 @@ function MusicianPage() {
     <tr>
       <td className="p-2 text-center">
         <img
-          src="../src/images/pumpkin.png" 
+          src="../src/images/awoctober.png" 
           alt="Imagen 0"
           className="w-6 h-6 rounded-md"
         />
@@ -364,7 +357,7 @@ function MusicianPage() {
     <tr>
       <td className="p-2 text-center">
         <img
-          src="../src/images/maple-leaf.png" 
+          src="../src/images/awnovember.png" 
           alt="Imagen 0"
           className="w-6 h-6 rounded-md"
         />
@@ -378,7 +371,7 @@ function MusicianPage() {
     <tr>
       <td className="p-2 text-center">
         <img
-          src="../src/images/christmas-tree.png" 
+          src="../src/images/awdecember.png" 
           alt="Imagen 0"
           className="w-6 h-6 rounded-md"
         />

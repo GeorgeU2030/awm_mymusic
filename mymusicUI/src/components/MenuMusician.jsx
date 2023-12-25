@@ -33,7 +33,7 @@ const MenuMusician = () => {
   })
   return (
     <div className="flex items-center justify-center bg-secondary h-[97vh]">
-      <div className="bg-gray-100 p-8 rounded shadow-lg max-w-md w-full mt-10 mb-10">
+      <div className="bg-base3 p-8 rounded shadow-lg max-w-md w-full mt-10 mb-10">
         <h2 className="text-2xl font-bold font-init mb-4 text-center">New Musician</h2>
         <form onSubmit={onSubmit} encType="multipart/form-data">
           <div className="mb-4">

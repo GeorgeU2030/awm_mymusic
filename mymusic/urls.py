@@ -22,4 +22,8 @@ urlpatterns = [
     path("musicians/<int:musician_id>/", views.musician_detail, name="musiciandetails"),
     path("musicians/<int:musician_id>/songs/", views.musician_songs, name="musiciansongs"),
     path("musicians/<int:musician_id>/awards/", views.musician_awards, name="musicianawards"),
+    path("latestsong/", views.get_latest_song, name="latesong"),
+    path("rankview/", views.ranking_view, name="rankingview"),
+    path("rankhis/", views.rankings_his, name="rankinghis"),
+    path("rankmushis/<int:ranking_id>/", views.rank_musicians, name="rankingmushis"),
 ]

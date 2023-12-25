@@ -51,7 +51,12 @@ const MenuSong = () => {
       console.log(entry[0], entry[1]);
     }
     await createSong(formData)
-    await updateMusician(musicianUpdates)
+    await updateMusician({
+      musicianUpdates,
+      startDate: data.startDate,
+      endDate: data.endDate,
+      week: data.week,
+    })
     
     navigate('/');
   } catch (error) {
@@ -103,7 +108,7 @@ const MenuSong = () => {
 
   return (
     <div className="flex items-center justify-center bg-base4 h-[147vh]">
-    <div className="bg-gray-100 p-8 rounded shadow-lg w-1/2 mt-10 mb-10">
+    <div className="bg-base3 p-8 rounded shadow-lg w-1/2 mt-10 mb-10">
     <h2 className="text-2xl font-bold font-init mb-4 text-center">New Song</h2>
     <form className="w-full max-w-lg mx-auto" onSubmit={onSubmit} encType="multipart/form-data">
       <div className="mb-4">

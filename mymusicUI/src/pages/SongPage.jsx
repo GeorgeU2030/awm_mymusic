@@ -36,16 +36,9 @@ const SongPage = () => {
 
   return (
     <>
-    <nav className="bg-primary p-4 flex items-center justify-between">
-      <Link to='/'>
-      <div className="hidden md:flex items-center ml-16">
-    <img src="src/images/headphones.png" className=" w-12 h-12 mr-4"></img>
-    <h1 className="text-white text-2xl font-init font-semibold ">
-    awm
-    </h1>
-      </div>
-      </Link>
-      <div className="hidden md:flex space-x-4 w-1/2 justify-center mr-10">
+    <nav className="bg-primary p-4 flex items-center justify-end">
+      
+      <div className="hidden md:flex space-x-4 w-1/2 justify-end mr-20 mt-3">
         <h1 className='font-init text-white text-xl font-semibold animate__animated animate__fadeIn'>Your Songs</h1>
       </div>
       </nav>
@@ -97,7 +90,7 @@ const SongPage = () => {
         </React.Fragment>
         ))}
         </td>
-        <td className={`py-3 px-3 text-center text-xl font-bold font-init ${song.rating === 'A+' ? 'text-blue-700' : song.rating === 'A' ? 'text-teal-700' : song.rating === 'B+' ? 'text-yellow-600' : song.rating === 'B' ? 'text-gray-800' : song.rating === 'C' ? 'text-amber-900' : ''}`}>
+        <td className={`py-3 px-3 text-center text-xl font-bold font-init ${song.rating === 'A+' ? 'text-blue-600' : song.rating === 'A' ? 'text-red-600' : song.rating === 'B+' ? 'text-green-600' : song.rating === 'B' ? 'text-purple-800' : song.rating === 'C' ? 'text-yellow-600' : ''}`}>
         {song.rating}
         </td>
         <td className="py-3 px-3 text-center font-init">{song.start_date}</td>

@@ -1,14 +1,14 @@
 import React from 'react'
-import MenuSong from '../components/MenuSong'
+import AwardPage from './AwardPage'
 import { DiscAlbum, Home, BarChart4, CircleUserRound, Music, Trophy, PlusCircle, AudioLines, FolderClock } from "lucide-react";
 import Sidebar from '../components/SideBar'
 import { SidebarItem } from '../components/SideBar'
 import {Link} from 'react-router-dom'
 
-const Menubs = () => {
+const AwardMain = () => {
   return (
     <>
-    <div className="flex">
+        <div className="flex">
         <Sidebar>
               <Link to='/'>
               <SidebarItem icon={<Home size={20} />} text="Home"/>
@@ -39,12 +39,12 @@ const Menubs = () => {
               <SidebarItem icon={<AudioLines size={20} />} text="Spotify" />
               </Link>
         </Sidebar>
-        <div className='bg-red-600 w-full overflow-y-auto h-screen'>
-        <MenuSong></MenuSong>
+        <div className=' w-full overflow-y-auto h-screen'>
+        <AwardPage></AwardPage>
         </div>
         </div>
-    </>
+        </>
   )
 }
 
-export default Menubs
+export default AwardMain
